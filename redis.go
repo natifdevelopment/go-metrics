@@ -2,7 +2,6 @@ package metrics
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -21,27 +20,27 @@ var redisMetrics struct {
 //
 // Call once after the Redis client is created.
 func RegisterRedisStats(client *redis.Client) {
-	redisMetrics.totalConns = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.totalConns = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_total_connections",
 		Help: "Total number of connections in the Redis pool.",
 	})
-	redisMetrics.idleConns = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.idleConns = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_idle_connections",
 		Help: "Number of idle connections in the Redis pool.",
 	})
-	redisMetrics.staleConns = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.staleConns = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_stale_connections",
 		Help: "Number of stale connections in the Redis pool.",
 	})
-	redisMetrics.hitsTotal = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.hitsTotal = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_hits_total",
 		Help: "Total number of Redis connection pool hits.",
 	})
-	redisMetrics.missesTotal = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.missesTotal = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_misses_total",
 		Help: "Total number of Redis connection pool misses.",
 	})
-	redisMetrics.timeoutsTotal = promauto.NewGauge(prometheus.GaugeOpts{
+	redisMetrics.timeoutsTotal = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "redis_pool_timeouts_total",
 		Help: "Total number of Redis connection pool timeouts.",
 	})
