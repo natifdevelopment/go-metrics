@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promauto"
 	"gorm.io/gorm"
 )
 
@@ -48,39 +47,39 @@ func registerDBPoolStats(db *sql.DB) {
 
 	c := &dbPoolStatsCollector{
 		db: db,
-		maxOpenConnections: promauto.NewGauge(prometheus.GaugeOpts{
+		maxOpenConnections: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_max_open_connections",
 			Help: "Maximum number of open connections to the database.",
 		}),
-		openConnections: promauto.NewGauge(prometheus.GaugeOpts{
+		openConnections: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_open_connections",
 			Help: "Number of established connections both in use and idle.",
 		}),
-		inUse: promauto.NewGauge(prometheus.GaugeOpts{
+		inUse: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_in_use_connections",
 			Help: "Number of connections currently in use.",
 		}),
-		idle: promauto.NewGauge(prometheus.GaugeOpts{
+		idle: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_idle_connections",
 			Help: "Number of idle connections.",
 		}),
-		waitCount: promauto.NewGauge(prometheus.GaugeOpts{
+		waitCount: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_wait_count_total",
 			Help: "Total number of connections waited for.",
 		}),
-		waitDuration: promauto.NewGauge(prometheus.GaugeOpts{
+		waitDuration: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_wait_duration_seconds_total",
 			Help: "Total time blocked waiting for a new connection, in seconds.",
 		}),
-		maxIdleClosed: promauto.NewGauge(prometheus.GaugeOpts{
+		maxIdleClosed: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_max_idle_closed_total",
 			Help: "Total number of connections closed due to SetMaxIdleConns.",
 		}),
-		maxIdleTimeClosed: promauto.NewGauge(prometheus.GaugeOpts{
+		maxIdleTimeClosed: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_max_idle_time_closed_total",
 			Help: "Total number of connections closed due to SetConnMaxIdleTime.",
 		}),
-		maxLifetimeClosed: promauto.NewGauge(prometheus.GaugeOpts{
+		maxLifetimeClosed: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "db_pool_max_lifetime_closed_total",
 			Help: "Total number of connections closed due to SetConnMaxLifetime.",
 		}),
